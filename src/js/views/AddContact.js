@@ -54,7 +54,7 @@ export const AddContact = () => {
                         onChange={(e) => setContact({ ...contact, address: e.target.value })}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary col-12">Save</button>
+                <button type="submit" className="btn btn-primary col-12">Guardar</button>
             </form>
         </div>
     );

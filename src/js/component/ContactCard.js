@@ -6,11 +6,18 @@ import { FaLocationDot, FaPen } from "react-icons/fa6";
 
 export const ContactCard = ({ contact }) => {
     const { actions } = useContext(Context);
-    const [showModal, setShowModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    
 
     const handleDelete = () => {
         actions.deleteContact(contact.id);
-        setShowModal(false);
+        setShowDeleteModal(false);
+    };
+
+    const handleEdit = () => {
+        actions.editContact(contact.id);
+        setShowEditModal(false);
     };
 
     return (
@@ -29,23 +36,38 @@ export const ContactCard = ({ contact }) => {
                         <p className="card-text"><FaLocationDot /> {contact.address}</p>
                     </div>
                     <div className="ms-auto d-flex align-items-center">
-                        <FaPen style={{ cursor: "pointer", marginRight: "10px" }} />
+                        <FaPen
+                            onClick={() => setShowEditModal(true)}
+                            style={{ cursor: "pointer", marginRight: "10px" }}
+                        />
                         <FaTrashAlt
-                            onClick={() => setShowModal(true)}
+                            onClick={() => setShowDeleteModal(true)}
                             style={{ cursor: "pointer" }}
                         />
                     </div>
                 </div>
             </div>
 
-            {showModal && (
+            {showDeleteModal && (
                 <div className="modal">
                     <div className="modal-content">
-                        <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+                        <span className="close" onClick={() => setShowDeleteModal(false)}>&times;</span>
                         <h2>Confirmar Eliminación</h2>
-                        <p>¿Está seguro de que desea borrar el contacto?</p>
-                        <button onClick={() => setShowModal(false)}>Cancelar</button>
+                        <p>¿Está seguro de borrar el contacto?</p>
+                        <button onClick={() => setShowDeleteModal(false)}>Cancelar</button>
                         <button onClick={handleDelete}>Continuar</button>
+                    </div>
+                </div>
+            )}
+
+            {showEditModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={() => setShowEditModal(false)}>&times;</span>
+                        <h2>Confirmar Modificación</h2>
+                        <p>¿Desea modificar su contacto?</p>
+                        <button onClick={() => setShowEditModal(false)}>Cancelar</button>
+                        <button  onClick={handleEdit}>Continuar</button>
                     </div>
                 </div>
             )}

@@ -15,6 +15,7 @@ export const Contacts = () => {
             {store.contacts.map((contact) => (
                 <ContactCard key={contact.id} contact={contact} />
             ))}
+
         </div>
     );
 };

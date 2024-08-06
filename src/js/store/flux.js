@@ -1,13 +1,13 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			contacts: [],
+    return {
+        store: {
+            contacts: [],
             agenda: "my_agenda", // Asegúrate de que este slug sea correcto y exista en la API
             demo: []  // Inicializa demo como un array vacío
-		},
-		actions: {
-			getContacts: async () => {
-                const store = getStore();
+        },
+        actions: {
+            getContacts: async () => {
+
                 try {
                     const resp = await fetch(`https://playground.4geeks.com/contact/agendas/Developers/contacts`);
                     if (!resp.ok) {
@@ -16,11 +16,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                     const data = await resp.json();
                     setStore({ contacts: data.contacts });
                 } catch (error) {
-                    console.error("Error loading contacts", error);
+                    console.error("Error al cargar los contactos", error);
                 }
             },
             addContact: async (contact) => {
-                const store = getStore();
                 try {
                     const resp = await fetch(`https://playground.4geeks.com/contact/agendas/Developers/contacts`, {
                         method: "POST",
@@ -32,11 +31,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                     await getActions().getContacts();
                 } catch (error) {
-                    console.error("Error adding contact", error);
+                    console.error("Error al añadir el contacto", error);
                 }
             },
             updateContact: async (id, updatedContact) => {
-                const store = getStore();
                 try {
                     const resp = await fetch(`https://playground.4geeks.com/contact/agendas/Developers/contacts/${id}`, {
                         method: "PUT",
@@ -48,11 +46,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                     await getActions().getContacts();
                 } catch (error) {
-                    console.error("Error updating contact", error);
+                    console.error("Error al editar el contacto", error);
                 }
             },
             deleteContact: async (id) => {
-                const store = getStore();
                 try {
                     const resp = await fetch(`https://playground.4geeks.com/contact/agendas/Developers/contacts/${id}`, {
                         method: "DELETE"
@@ -62,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                     await getActions().getContacts();
                 } catch (error) {
-                    console.error("Error deleting contact", error);
+                    console.error("Error al eliminar el contacto", error);
                 }
             },
             loadDemoData: async () => {
